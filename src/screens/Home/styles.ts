@@ -1,17 +1,17 @@
-import styled from 'styled-components';
+import {FlatList} from 'react-native';
+import styled from 'styled-components/native';
+import { IEquipamento } from './';
 
-const Container = styled.View`
+export const Container = styled.View`
     flex:1;
     background-color: ${ props => props.theme.background};
     justify-content:center;
-    align-items:center;
 `
- const Name = styled.Text`
+ export const Name = styled.Text`
     font-size:30px;
     color: ${ props => props.theme.colorFonts};
  `
-
- export {
-     Container,
-     Name
- }
+ 
+export const UsersList = styled(FlatList as new () => FlatList<IEquipamento>)`
+  padding: 20px;
+`;
