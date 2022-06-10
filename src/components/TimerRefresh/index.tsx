@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { Button, Text, View } from 'react-native';
+import { Container,Button,TextButton} from './styles'
+import { RenderConditional } from '../'
 
 interface IProps {
     onInit: () => void | any
@@ -15,6 +16,8 @@ const TimerRefresh: React.FC<IProps> = ({onInit}): JSX.Element => {
   
     // O estado do nosso timer
     const [timer, setTimer] = useState('00:00:00');
+    const [isPause, setIsPause] = useState(false);
+
   
   
     const getTimeRemaining = (e) => {
@@ -29,11 +32,8 @@ const TimerRefresh: React.FC<IProps> = ({onInit}): JSX.Element => {
   
   
     const startTimer = (e) => {
-        let { total, hours, minutes, seconds } 
-                    = getTimeRemaining(e);
-        if (total >= 0) {
-  
-    
+        let { total, hours, minutes, seconds } = getTimeRemaining(e);
+        if (total >= 0) {    
             // atualiza o temporizador
             // verifica se for menor que 10 então precisamos
             // adiciona '0' no início da variável
@@ -42,7 +42,9 @@ const TimerRefresh: React.FC<IProps> = ({onInit}): JSX.Element => {
                 (minutes > 9 ? minutes : '0' + minutes) + ':'
                 + (seconds > 9 ? seconds : '0' + seconds)
             )
-
+                if(seconds == 0){
+                    setIsPause(true);
+                }
         }
 
     }
@@ -89,14 +91,22 @@ const TimerRefresh: React.FC<IProps> = ({onInit}): JSX.Element => {
     // botão primeiro criamos a função a ser chamada
     // pelo botão
     const onClickReset = () => {
+        setIsPause(false);
         clearTimer(getDeadTime());
     }
   
     return (
-        <View>
-            <Text>{timer}</Text>
-            <Button onPress={onClickReset} title='Atualizar' />
-        </View>
+        <Container>
+            <Button onPress={onClickReset}>
+                <RenderConditional isTrue={isPause}>
+                    <TextButton>Atualizar</TextButton>
+                </RenderConditional>
+
+                <RenderConditional isTrue={!isPause}>
+                    <TextButton>{timer}</TextButton>
+                </RenderConditional>
+            </Button>
+        </Container>
     )
 }
   

@@ -5,9 +5,9 @@ type Equipamento = {
 }
 
 const equipamentos:Array<Equipamento> = [
-    {id: "1", ip:"192.168.5.108", name:"Lenovo Anderson"},
-    {id:"2", ip:"192.168.5.105",name:"Anderson PC" },
-    {id:"3", ip:"192.168.5.103",name:"A01" }
+    {id: "1", ip:"192.168.1.244", name:"Anderson CP"},
+    {id:"2", ip:"192.168.1.167",name:"Edivar CP" },
+    {id:"3", ip:"192.168.2.106",name:"Edivar CE" }
 ]
 
 export const FakeAPI = () => {
